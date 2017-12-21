@@ -1,0 +1,31 @@
+Modelo
+
+En el momento de agregar un cupón, la clase AlgoBay le pide a la compra su cupón actual, lo compara con el nuevo y le pasa el mejor cupón a la compra. Esto debería estar encapsulado en la clase Compra. AlgoBay debería mandarle un único mensaje a la compra con el nuevo cupón y que la compra se encargue de compararlo y hacer lo que tenga que hacer.
+En el método elegirMejorCupon:y: de la clase Compra no estás contemplando el caso de que haya dos cupones con el mismo valor. No hay ninguna prueba unitaria que verifique esto pero si la hubiera daría error dado que la compra se estaría guardando un objeto nil en su lista de adicionales.
+En ese mismo método estás rompiendo el encapsulamiento de los cupones al preguntarles el valor a cada uno y compararlos cuando directamente le podés mandar el otro cupón y delegarle esa responsabilidad.
+El error de diseño más grave está en el método retirarCupon de la clase Compra. Estás haciendo una retrospección de clase mediante el método isKindOf violando el encapsulamiento de manera explícita. En función de esa respuesta determinás qué hacer luego en lugar de delegar esa responsabilidad. El uso adecuado de ese método se verá sobre el final de la materia y definitivamente no es para hacer algo así.
+Casi no usás métodos de clase para instanciar tus clases con el estado deseado. En esta parte de tu código se puede apreciar lo rebuscado que queda no haberlo hecho:
+crearNuevaCompraConEnvio
+	"Crea una compra con envio"
+	|atr|
+	atr:= (Envio new) setValor: 100.
+	^ (Compra new) agregarAdicional: atr.
+Ese código podría haber quedado así implementando los métodos de clase correspondientes:
+crearNuevaCompraConEnvio
+	^ (Compra conAdicional: (Envio conValor: 100)).
+En la clase Producto implementaste un método de instancia llamdo conNombre:conPrecio: cuando claramente la idea es que sea un método de clase. Si tenés dudas acerca del uso de métodos de clase como constructores en Pharo podés ver el video que fue citado en el foro de consultas.
+En general en todo el modelo usás demasiadas estructuras de control (ifTrue) en lugar de delegar las responsabilidades de manera apropiada.
+Diagramas
+
+Los diagramas de secuencia no están lo suficientemente detallados en algunos casos. Por ejemplo en el de la creación de la compra simple no mostrás cómo se calcula el precio bruto, que sería interesante. 
+En ningún diagrama mostrás donde hacés las iteraciones y en ningún caso diagramaste la devolución de los mensajes (que no siempre es necesario pero a veces resulta interesante saber qué cosa devuelve un mensaje en particular).
+Pruebas
+
+La cobertura de las pruebas es muy buena pero hay muchas que no son unitarias, es decir, tienen más de un assert y/o deny y, por lo tanto, prueban varias cosas al mismo tiempo. 
+Los nombres de muchas pruebas además no son lo suficientemente descriptivos y en algunas encima ponés un comentario innecesario cuando en realidad eso que ponés como comentario debería ser el nombre de la prueba (sí, así de largo).
+Código
+
+Los nombres de algunas variables no son lo suficientemente descriptivos, como por ejemplo atr y gar.
+La mayoría de los comentarios son redundantes. Si los métodos tienen buenos nombres, su responsabilidad es limitada y se delegan las responsabilidades que correspondan entonces el código será lo suficientemente descriptivo para explicar qué es lo que se está haciendo sin necesidad de un comentario. El comentario es útil para explicar por qué se hace algo, no cómo. Para el cómo está el código. Y si ese código no se entiende y considerás que necesita un comentario entonces hay algo sospechoso.
+Mezclás camelCase con snake_case.
+Mezclás inglés con español en algunos casos.

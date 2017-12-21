@@ -1,0 +1,216 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="nicopaez.tutoriales.oo.notas" basedir="." default="test">
+	<property name="build" location="build" />
+	<property name="libs" location="libs" />
+	<property name="classes.dir" location="build" />
+	<property name="instrumented.dir" location="${build}/instrumented" />
+	<property name="cobertura.dir" location="${libs}" />
+	<property name="pmd.dir" location="${libs}/analysis" />
+	<property name="reports.dir" location="${build}/reports" />
+	<property name="reports.xml.dir" location="${reports.dir}/junit-xml" />
+	<property name="reports.html.dir" location="${reports.dir}/junit-html" />
+	<property name="src.dir" location="src" />
+	<property name="coverage.xml.dir" location="${reports.dir}/cobertura-xml" />
+	<property name="coverage.summaryxml.dir" location="${reports.dir}/cobertura-summary-xml" />
+	<property name="coverage.html.dir" location="${reports.dir}/cobertura-html" />
+
+	<!-- Ivy customization -->
+	<property name="ivy.install.version" value="2.2.0" />
+	<property name="ivy.jar.dir" value="${libs}/" />
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+	<!-- End of 'Ivy customization -->
+
+	<!-- For those who are behind a proxy you may add the line bellow -->
+	<!-- <setproxy proxyhost="proxy.domain.x.y" proxyport="8080" proxypassword="passwd" proxyuser="userid"/> -->
+
+	<path id="classpath">
+		<fileset dir="${libs}">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${build}" />
+		<pathelement location="${instrumented.dir}" />
+		<pathelement location="${build}/tests" />
+	</path>
+
+	<path id="cobertura.classpath">
+		<fileset dir="${cobertura.dir}">
+			<include name="cobertura-1.9.4.1.jar" />
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="pmd.classpath">
+		<fileset dir="${pmd.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="setup">
+		<delete dir="${build}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${build}/tests" />
+        <mkdir dir="${reports.dir}" />
+	</target>
+
+	<target name="compilar.aplicacion" depends="setup, resolve">
+		<javac srcdir="src" destdir="${build}" includeantruntime="false" debug="yes" target="1.8">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="compilar.tests" depends="instrumentar.aplicacion">
+		<javac srcdir="test" destdir="${build}/tests" includeantruntime="false" debug="yes" target="1.8">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+    <target name="compilar.tests.sin.instrumentar" depends="compilar.aplicacion">
+        <javac srcdir="test" destdir="${build}/tests" includeantruntime="false" debug="yes" target="1.8">
+            <classpath refid="classpath" />
+        </javac>
+    </target>
+
+	<target name="instrumentar.aplicacion" depends="compilar.aplicacion, init">
+		<delete file="${build}/cobertura.ser" />
+		<delete dir="${instrumented.dir}" />
+		<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+		<cobertura-instrument todir="${instrumented.dir}" datafile="${build}/cobertura.ser">
+			<ignore regex="org.apache.log4j.*" />
+			<fileset dir="${classes.dir}">
+				<include name="**/*.class" />
+				<exclude name="**/*Test.class" />
+			</fileset>
+		</cobertura-instrument>
+	</target>
+
+
+    <target name="ejecutar.tests" depends="compilar.tests">
+        <junit fork="yes" failureProperty="test.failure" forkmode="once" showoutput="true">
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="${build}/cobertura.ser" />
+            <classpath location="${instrumented.dir}" />
+            <classpath location="${build}" />
+            <classpath refid="cobertura.classpath" />
+            <classpath refid="classpath" />
+            <formatter type="xml" />
+            <test name="${testcase}" todir="${reports.xml.dir}" if="testcase" />
+            <batchtest todir="${reports.xml.dir}" unless="testcase">
+                <fileset dir="${build}/tests" includes="**/*Test.class" />
+                <fileset dir="${build}/tests" includes="**/Prueba*.class" />
+            </batchtest>
+        </junit>
+        <fail message="Pruebas fallidas" if="test.failure" />
+        <junitreport todir="${reports.xml.dir}">
+            <fileset dir="${reports.xml.dir}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="${reports.html.dir}" />
+        </junitreport>
+    </target>
+
+	<target name="init">
+		<mkdir dir="${instrumented.dir}" />
+		<mkdir dir="${reports.xml.dir}" />
+		<mkdir dir="${reports.html.dir}" />
+	</target>
+
+	<target name="coverage-check">
+		<cobertura-check branchrate="34" totallinerate="100" />
+	</target>
+
+	<target name="coverage-report" depends="ejecutar.tests">
+		<cobertura-report srcdir="${src.dir}" destdir="${coverage.xml.dir}" format="xml" datafile="${build}/cobertura.ser" />
+	</target>
+
+	<target name="summary-coverage-report">
+		<cobertura-report srcdir="${src.dir}" destdir="${coverage.summaryxml.dir}" format="summaryXml" datafile="${build}/cobertura.ser" />
+	</target>
+
+	<target name="alternate-coverage-report">
+		<cobertura-report destdir="${coverage.html.dir}" datafile="${build}/cobertura.ser">
+			<fileset dir="${src.dir}">
+				<include name="**/*.java" />
+			</fileset>
+		</cobertura-report>
+	</target>
+
+    <target name="test" depends="compilar.tests.sin.instrumentar">
+        <junit fork="no" failureProperty="test.failure" showoutput="true">
+            <classpath location="${build}" />
+            <classpath refid="classpath" />
+            <batchtest todir="${reports.xml.dir}" unless="testcase">
+                <fileset dir="${build}/tests" includes="**/*Test.class" />
+                <formatter type="plain" usefile="false"/>
+            </batchtest>
+        </junit>
+        <fail message="Pruebas fallidas" if="test.failure" />
+    </target>
+
+
+    <target name="compilar.paquete" depends="test">
+		<javac srcdir="src" destdir="${build}/classes" debug="no">
+		</javac>
+	</target>
+
+	<target name="empaquetar" depends="compilar.paquete">
+		<jar destfile="${build}/dist/algo3.jar" basedir="${build}/classes" />
+	</target>
+
+	<target name="integracion-continua" depends="run-pmd,coverage-report,alternate-coverage-report" description="Ejecuta todas las tareas de integracion y genera los correspondientes reportes"/>
+
+	<!-- Ivy installation -->
+	<target name="download-ivy" unless="skip.download">
+		<mkdir dir="${ivy.jar.dir}" />
+		<!-- download Ivy from web site so that it can be used even 
+         without any special installation -->
+		<echo message="installing ivy..." />
+		<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
+	</target>
+
+	<target name="install-ivy" depends="download-ivy" description="--> install ivy">
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+	</target>
+	<!-- End of 'Ivy installation -->
+
+	<!-- Resolve dependencies -->
+	<target name="resolve" depends="install-ivy" description="--> retrieve dependencies with ivy">
+		<ivy:retrieve conf="build" pattern="${libs}/[artifact]-[type]-[revision].[ext]" />
+		<ivy:retrieve conf="analysis" pattern="${libs}/analysis/[artifact](-[classifier]).[ext]"/>	
+		
+	</target>
+	<!-- End of 'Resolve dependencies -->
+
+	<target name="run-pmd" depends="setup, resolve">
+		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" >
+			<classpath refid="pmd.classpath" />
+		</taskdef>
+		<pmd shortFilenames="true">
+			<ruleset>rulesets/favorites.xml</ruleset>
+			<ruleset>basic</ruleset>
+			<ruleset>imports</ruleset>
+			<formatter type="html" toFile="${reports.dir}/pmd.html" linkPrefix="http://pmd.sourceforge.net/xref/" toConsole="true"/>
+            <formatter type="xml" toFile="${reports.dir}/pmd.xml" linkPrefix="http://pmd.sourceforge.net/xref/" toConsole="false"/>
+			<fileset dir="src">
+				<include name="**/*.java" />
+			</fileset>
+		</pmd>
+	</target>
+
+
+		<target name="empaquetar.con.imagenes" depends="compilar.paquete">
+			<copydir src="src/gui/imagess"
+				dest="${build}/classes/gui/imagess"
+				includes="**/*.png"/>
+		<jar destfile="${build}/dist/algo3.jar" basedir="${build}/classes"/>
+	</target>
+
+	<target name="ejecutar.aplicacion" depends="empaquetar">
+		<java classname="fiuba.algo3.ejemplo1.Foo" fork="true">
+			<classpath refid="classpath" />
+			<classpath location="${build}/dist/algo3.jar" />
+		</java>
+	</target>
+
+</project>
