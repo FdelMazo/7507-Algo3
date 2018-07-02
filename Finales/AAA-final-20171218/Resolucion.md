@@ -1,4 +1,4 @@
-Mi solución no fue la mejor. Por lo que cace, se esperaba que se haga un double-dispatch entre instrumento y material. Yo por mi lado use un dd, de guia y no estricto, entre músico e instrumento
+Mi solución no fue la mejor. Por lo que parece, se esperaba que se haga un double-dispatch entre instrumento y material. Yo por mi lado use un dd, de guia y no estricto, entre músico e instrumento
 
 Los errores que encontre/arreglé fueron:
 * "Test bien bien completo" no es unitario -> Lo subdividi en tests unitarios
