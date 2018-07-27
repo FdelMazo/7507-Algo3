@@ -21,7 +21,7 @@ Si o si leer:
 
 Solo de cebado:
 
-* Visitor Pattern: https://sourcemaking.com/design_patterns/visitor
+* Visitor Pattern: https://sourcemaking.com/design_patterns/visitor y https://youtu.be/pL4mOUDi54o
 
 * Double dispatch otro ejemplo: https://github.com/iluwatar/java-design-patterns/tree/master/double-dispatch
 
