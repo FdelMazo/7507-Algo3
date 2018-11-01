@@ -1,0 +1,3 @@
+[submodule "TPs/TP2 Java"]
+	path = TPs/TP2 Java
+	url = git@github.com:FdelMazo/TP-AlgoPoly.git
