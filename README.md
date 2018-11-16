@@ -7,6 +7,8 @@ El final que aprobé es el del [18 de diciembre](Finales/AAA-final-20171218/fina
 
 El TP2 de Java, (incluido en la carpeta de TPs) se desarrolló [acá](https://github.com/FdelMazo/TP-AlgoPoly)
 
+De cambiar alguna lectura obligatoria o presentación, se aceptan pull requests para tener al dia el repo!!
+
 ---
 
 En los finales suelen tomar casi siempre el mismo patron de diseño, **Double dispatch**. Double dispatch es muy polemico y debatible (hay quienes dicen que no es un patron, [otros](https://lostechies.com/derekgreer/2010/04/19/double-dispatch-is-a-code-smell/) que directamente perjudica el código, etc), por eso hay tan poca documentación online. Suele estar visto bajo el patron Visitor o Multiple-Dispatch. La mejor forma de aprenderlo es con el Ejemplo de Double Dispatch de Tomás Arjowskywiki sacado de la wiki de FIUBA. 
