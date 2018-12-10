@@ -21,6 +21,8 @@ Si o si leer:
 
 * [SOLID Principles for dummies](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
 
+* Si Double Dispatch no se termina de entender, leer este [texto](https://sites.google.com/site/programacionhm/conceptos/multiple-dispatch) que resume single, double y multiple dispatch para entenderlo mejor.
+
 Solo de cebado:
 
 * Visitor Pattern: https://sourcemaking.com/design_patterns/visitor y https://youtu.be/pL4mOUDi54o
