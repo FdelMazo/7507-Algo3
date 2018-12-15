@@ -15,15 +15,17 @@ En los finales suelen tomar casi siempre el mismo patron de diseño, **Double di
 
 Lo otro que siempre preguntan son los principios SOLID. Estos son 5 principios fundamentales de POO acuñados por Robert Martin ('Uncle Bob', uno de los capos de POO y del desarrollo [agil](http://agilemanifesto.org/)).
 
+**SI NO SE HACEN TESTS UNITARIOS EN EL MODELO DEL FINAL NO SE APRUEBA!!!**
+
 Si o si leer:
 
 * [Ejemplo de Double Dispatch de Tomás Arjowskywiki](wiki.foros-fiuba.com.ar/_media/materias:75:doubledispatch.zip)
 
 * [SOLID Principles for dummies](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
 
-* Si Double Dispatch no se termina de entender, leer este [texto](https://sites.google.com/site/programacionhm/conceptos/multiple-dispatch) que resume single, double y multiple dispatch para entenderlo mejor.
-
 Solo de cebado:
+
+* Este [texto](https://sites.google.com/site/programacionhm/conceptos/multiple-dispatch) que resume single, double y multiple dispatch sirve bastante para entenderlo mejor.
 
 * Visitor Pattern: https://sourcemaking.com/design_patterns/visitor y https://youtu.be/pL4mOUDi54o
 
