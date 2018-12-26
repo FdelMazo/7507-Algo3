@@ -1,6 +1,10 @@
 # Algo3
 Trabajos Prácticos y Finales de Algoritmos y Programación 3 - 7507 - 2c2017 FIUBA 
 
+## Si tenés un final que no está en este repo (y no esta en la wiki), por favor subilo! Mandá un mail o hace un Pull Request
+
+---
+
 Dejo acá los TPs de la cursada y los finales que rendí de Algo3.
 
 El final que aprobé es el del [18 de diciembre](Finales/AAA-final-20171218/final-alumno) y lo dejo con la solución propuesta y un par de notas que tome durante el examen.
@@ -10,6 +14,8 @@ El TP2 de Java, (incluido en la carpeta de TPs) se desarrolló [acá](https://gi
 De cambiar alguna lectura obligatoria o presentación, se aceptan pull requests para tener al dia el repo!!
 
 ---
+
+## Como aprobar el final de Algo3 y no morir en el intento
 
 En los finales suelen tomar casi siempre el mismo patron de diseño, **Double dispatch**. Double dispatch es muy polemico y debatible (hay quienes dicen que no es un patron, [otros](https://lostechies.com/derekgreer/2010/04/19/double-dispatch-is-a-code-smell/) que directamente perjudica el código, etc), por eso hay tan poca documentación online. Suele estar visto bajo el patron Visitor o Multiple-Dispatch. La mejor forma de aprenderlo es con el Ejemplo de Double Dispatch de Tomás Arjowskywiki sacado de la wiki de FIUBA. 
 
