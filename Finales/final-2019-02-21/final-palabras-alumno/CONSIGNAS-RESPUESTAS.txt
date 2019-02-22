@@ -45,17 +45,17 @@ En este sentido cualquiera de las siguientes situaciones conlleva a la desaproba
 
 Problemas:
 
-- Clases con atributos publicos permiten que se viole en encapsulamiento. Esto permite que se introduzcan bugs mas rapido. Puede afectar la factorizacion
-- Palabras magicas
-- Numeros magicos
-- No se estandarizan errores bajo excepciones, no se aprovecha al maximo el poo
+- Clases con atributos públicos permiten que se viole en encapsulamiento. Esto permite que se introduzcan bugs más rápido. Puede afectar la factorización
+- Palabras mágicas
+- Números mágicos
+- No se estandarizan errores bajo excepciones, no se aprovecha al máximo el poo
 - Test poco modularizado
 - Nombre de test poco descriptivo
-- Test deben servir como documentacion viva, no explica de todo lo que se pretende hacer
-- No hay una estandarizacion uniforme en cuanto a los idiomas utilizados
-- Poca modularizacion del codigo en paquetes, puede dificultar su lectura. El codigo se lee muchas veces a lo largo del tiempo
-- Atributos publicos de la palabra limitan a unica implementacion
+- Test deben servir como documentación viva, no explica de todo lo que se pretende hacer
+- No hay una estandarización uniforme en cuanto a los idiomas utilizados
+- Poca modularización del código en paquetes, puede dificultar su lectura. El código se lee muchas veces a lo largo del tiempo
+- Atributos públicos de la palabra limitan a única implementación
 
-- La celda viola el principio de unica responsabilidad, esta clase podria estar modularizada y tener mas componentes. A su vez, de la manera que estan declarados sus nombres de atributos y meteodos, generan una baja cohesion
-- No se programa contra abstracciones, representa un problema en el diseno, no permite aprovechar al maximo el polimorfismo y puede afectar al prinicipio abierto-cerrado
-- Efectivamente se rompe abierto cerrado, no esta disenado para agregar mas requerimientos con modificaciones minimas sobre elementos ya existentes
+- La celda viola el principio de única responsabilidad, esta clase podría estar modularizada y tener más componentes. A su vez, de la manera que están declarados sus nombres de atributos y métodos, generan una baja cohesión
+- No se programa contra abstracciones, representa un problema en el diseño, no permite aprovechar al máximo el polimorfismo y puede afectar al principio abierto-cerrado
+- Efectivamente se rompe abierto cerrado, no esta diseñado para agregar más requerimientos con modificaciones mínimas sobre elementos ya existentes
