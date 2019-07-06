@@ -25,7 +25,7 @@ Lo otro que siempre preguntan son los principios SOLID. Estos son 5 principios f
 
 Si o si leer:
 
-* [Ejemplo de Double Dispatch de Tomás Arjowskywiki](wiki.foros-fiuba.com.ar/_media/materias:75:doubledispatch.zip)
+* [Ejemplo de Double Dispatch de Tomás Arjowskywiki](http://wiki.foros-fiuba.com.ar/_media/materias:75:doubledispatch.zip)
 
 * [SOLID Principles for dummies](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
 
