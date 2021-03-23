@@ -2,8 +2,9 @@
 Rejunte de Finales de [7507] Algoritmos y Programación 3 (Curso Fontela)- FIUBA
 
 ### Si tenés un final que no está en este repo, por favor subilo!
-### Si cambian las lecturas obligatorias o presentaciones, también!
-### Hacé un Pull Request o mandá un mail (fdelmazo at fi.uba.ar) 
+* Si cambian las lecturas obligatorias o presentaciones, también!
+* Hacé un Pull Request o mandá un mail (fdelmazo at fi.uba.ar)
+* Renombra los enunciados (`consigna.md`, `enunciado.txt`, o cual fuese) a `README` así github los presenta de forma bonita)
 
 ---
 
