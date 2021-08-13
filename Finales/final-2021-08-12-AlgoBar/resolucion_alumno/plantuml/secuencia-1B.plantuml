@@ -1,0 +1,51 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide empty members
+
+title Secuencia 1B \n Cuanto debe pagar un socio a fin de mes \n habiendo realizado consumos por $1000 \n y tratando de reservar la sala de cine
+
+actor actor
+participant cli as ":Cliente"
+participant tipo as "tipo:Socio"
+participant prod as ":Producto"
+participant cine as "cine:SalaCine"
+
+actor ++
+
+note right actor : inicializar
+
+actor -> cli ** : new Cliente()
+actor -> tipo ** : new Socios()
+actor -> cli ++ : setTipo( tipo )
+cli --
+
+note right actor : consumir un producto de $1000
+
+actor -> cli ++ : consumir( snack )
+cli -> tipo ++ : consumir( snack )
+tipo -> prod ++ : precio()
+return 1000
+tipo -> cli ++ : aumentarDeuda( 1000 * 0.9 )
+note right cli : deuda = 900
+cli --
+tipo --
+cli--
+
+note right actor : reservar sala de cine con 5 personas
+
+actor -> cli ++ : reservar( cine, 5 )
+cli -> tipo ++ : reservar( cine, 5 )
+tipo -> cine ++ : reservarPara( tipo, 5 )
+
+return 5 >= 8
+return false
+return false
+
+actor -> cli ++ : debePagar()
+cli -> tipo ++: precio()
+return 500
+return 500 + 900
+
+@enduml

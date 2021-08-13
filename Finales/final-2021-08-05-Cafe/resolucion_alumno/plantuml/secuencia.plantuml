@@ -1,0 +1,31 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide empty members
+
+actor actor
+participant cafe as ":Latte"
+participant tam as ":PaQueTanto"
+participant foam as ":FoamArtPrincipiante"
+
+actor ++
+actor -> cafe ++ : precio()
+
+note over cafe : precio = precioBase
+
+
+cafe -> tam ++ : precio()
+return precio += precioTamano
+
+cafe -> cafe ++ : descuento()
+return 0%
+
+note over cafe : precio *= 1-descuento
+
+cafe -> foam ++ : precio()
+return precio += precioFoamArt
+
+return precio
+
+@enduml
