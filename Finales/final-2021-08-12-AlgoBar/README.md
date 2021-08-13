@@ -23,10 +23,10 @@ Al momento de registrar el cierre de una mesa el precio a pagar por todos los co
 
 ### Se solicita:
 1. Diagramas de secuencias para los siguientes escenarios.
-	a. Calcular el precio que debe pagar un asociado premiun al finalizar el mes, habiendo consumido en el salón una noche $1000, una segunda noche $3000 y habiendo visitado la sala de cine con 4 personas consumiendo en ese acto
+- Calcular el precio que debe pagar un asociado premiun al finalizar el mes, habiendo consumido en el salón una noche $1000, una segunda noche $3000 y habiendo visitado la sala de cine con 4 personas consumiendo en ese acto
 $10000.
-	b. Calcular el precio que debe pagar un asociado al finalizar el mes, habiendo consumido en el salón una noche $1000 y habiendo intentado visitar la sala de cine con 5 personas.
-	c. Un no socio consumiendo por $1500
+- Calcular el precio que debe pagar un asociado al finalizar el mes, habiendo consumido en el salón una noche $1000 y habiendo intentado visitar la sala de cine con 5 personas.
+- Un no socio consumiendo por $1500
 2. Diagrama de clases (completo) que corresponden a los diagramas de secuencia.
 3. Foto personal.
 4. Foto de la primera página de la libreta.
