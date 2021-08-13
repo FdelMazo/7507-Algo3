@@ -1,0 +1,38 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide empty members
+
+title Secuencia 1C \n un no socio \n consume por $1500
+
+actor actor
+participant cli as ":Cliente"
+participant tipo as "tipo:NoSocio"
+participant prod as ":Producto"
+
+actor ++
+
+note right actor : inicializar
+
+actor -> cli ** : new Cliente()
+cli ++
+cli -> tipo ** : new NoSocio()
+cli -> cli ++ : setTipo( tipo )
+cli --
+cli --
+note right cli : Se inicializa como no socio
+note right cli : No se aclara en el resto de los diagramas, pues no es relevante
+
+note right actor : consumir por producto de $1500
+
+actor -> cli ++ : consumir( hamburguesa )
+cli -> tipo ++ : consumir( hamburguesa )
+tipo -> prod ++ : precio()
+return 1500
+tipo -> cli ++ : pagarDeuda( 1500 )
+cli --
+tipo --
+cli--
+
+@enduml

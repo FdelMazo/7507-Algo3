@@ -1,0 +1,38 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide empty members
+
+class Cliente {
+	- deuda : int
+	+ setTipo( TipoDeSocio )
+	+ consumir( producto : Producto )
+	+ reservar( sala : Sala, cantPersonas : int ) : bool
+	+ debePagar() : int
+	+ aumentarDeuda( dinero : int )
+	+ pagarDeuda( dinero : int )
+}
+abstract TipoDeSocio {
+
+	+ {abstract} precio() : int
+	+ {abstract} consumir( producto : Producto )
+	+ reservar( sala : Sala, cantPersonas : int ) : bool
+}
+Cliente *--"1" TipoDeSocio
+TipoDeSocio <|-- NoSocio
+TipoDeSocio <|-- Socio
+TipoDeSocio <|-- SocioPremium
+
+class Producto {
+	+ precio() : int
+}
+
+interface Sala <<interface>> {
+	+ {abstract} reservarPara( tipo:TipoDeSocio, cantPersonas : int ) : bool
+}
+Sala <|.. SalaCine
+Sala <|.. SalaDeMusica
+
+
+@enduml

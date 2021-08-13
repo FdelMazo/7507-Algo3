@@ -1,0 +1,55 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide empty members
+
+abstract Cafe {
+	- precioBase : float
+	- paraLlevar : bool
+	- descuento() : float
+	+ {abstract} precio() : float
+}
+note right
+Cada cafe tiene un
+constructor con sus atributos
+end note
+
+class Americano{
+
+}
+Cafe <|-- Americano
+
+class Espresso{
+	
+}
+Cafe <|-- Espresso
+
+class Frio{
+	
+}
+Cafe <|-- Frio
+
+class Latte{
+	
+}
+Cafe <|-- Latte
+
+interface TamanoCafe <<interface>> {
+	{abstract}+ precio() : float
+}
+Frio --> TamanoCafe
+Latte --> TamanoCafe
+TamanoCafe <|.. Grande
+TamanoCafe <|.. ReGrande
+TamanoCafe <|.. PaQueTanto
+
+interface FoamArt <<interface>>{
+	+ precio() : float
+}
+Latte --> FoamArt
+FoamArt <|.. SinFoamArt
+FoamArt <|.. FoamArtPrincipiante
+FoamArt <|. FoamArtExperto
+
+@enduml
