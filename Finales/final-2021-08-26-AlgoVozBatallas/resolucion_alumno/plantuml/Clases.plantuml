@@ -1,0 +1,78 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+hide empty members
+
+class Coach {
+
+	-yaRobo : bool
+	+ robarDe( batalla : Batalla )
+	+ perderParticipante( participante : Participante )
+	+ asignarParticipante( participante : Participante[] )
+	+ batallaEntre( unParticipante:Participante, otroParticipante:Participante):Participante
+}
+
+class Participante {
+	+ setHabilidad( habilidad:HabilidadExtra )
+	+ presentaMejorQue( otro:Participante ):Participante
+	+ presentaMejorQue( otro:Participante , otra:Presentacion ):Participante
+}
+
+class Presentacion{
+	- errores : uint
+	+ errores() : uint 
+
+	+ presentaMejorQue( participante:Participante, otro:Participante , otra:Presentacion ):Participante
+
+	+ masHabilQue( participante:Participante, otro:Participante , otra:HabilidadExtra ):Participante
+
+	{static} new Presentacion( habilidad:HabilidadExtra ):Presentacion
+	{static} new Presentacion( ):Presentacion
+}
+
+class Batalla {
+
+	- perdedor : Participante
+	- ganador : Participante
+
+	- setGanador( unParticipante: Participante)
+	- setPerdedor( unParticipante: Participante)
+	
+	+ entre( unParticipante:Participante, otroParticipante:Participante):Participante
+
+	+ robarPor( coach:Coach )
+}
+
+interface HabilidadExtra <<interface>> {
+	+ masHabilQue( participante:Participante, otro:Participante , otra:HabilidadExtra ):Participante
+
+	+ masHabilQue( participante:Participante, otro:Participante , otra:HabilidadBailar ):Participante
+
+	+ masHabilQue( participante:Participante, otro:Participante , otra:HabilidadInstrumento ):Participante
+
+	+ masHabilQue( participante:Participante, otro:Participante , otra:HabilidadCarisma ):Participante
+
+	+ masHabilQue( participante:Participante, otro:Participante , otra:SinHabilidad ):Participante
+}
+
+Coach o-- Participante
+
+Participante *-- Presentacion
+
+Participante "1"*-"1" HabilidadExtra
+
+
+HabilidadExtra <|.. HabilidadBailar
+HabilidadExtra <|.. HabilidadInstrumento
+HabilidadExtra <|.. HabilidadCarisma
+HabilidadExtra <|.. SinHabilidad
+
+Batalla "1" -> "2" Participante
+
+Coach --> Batalla
+
+Presentacion "1"*-"1" HabilidadExtra
+
+
+@enduml

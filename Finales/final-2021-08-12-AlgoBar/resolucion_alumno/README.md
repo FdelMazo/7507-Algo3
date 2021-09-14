@@ -1,5 +1,7 @@
 ## Correcciones
 
+### Nota: 2
+
 ### Modelo:
 
 - Debe modelar los consumos, no puede acumularse simplemente en monto en el cliente. Error grave. Tampoco modela la reserva

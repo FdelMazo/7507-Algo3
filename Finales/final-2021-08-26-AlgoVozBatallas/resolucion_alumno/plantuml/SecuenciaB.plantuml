@@ -1,0 +1,73 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+
+actor actor
+participant p1 as "carismatico:Participante"
+participant pp1 as "presentacionCarismatico:Presentacion"
+participant p2 as "charanguista:Participante"
+participant pp2 as "presentacionCharanguista:Presentacion"
+participant hab as "carisma:HabilidadCarisma"
+participant hab2 as "charango:HabilidadInstrumento"
+participant coach as "coach:Coach"
+participant bat as "segundaBatalla:Batalla"
+
+actor ++
+
+actor -> p1 **
+actor -> hab **
+actor -> p1 ++: setHabilidad( carisma )
+return
+
+actor -> p2 **
+actor -> hab2 **
+actor -> p2 ++: setHabilidad( charango )
+return
+
+actor -> coach ++ : asignarParticipantes( [carismatico, charanguista] )
+return
+
+actor -> coach ++: batallaEntre(carismatico, charanguista)
+
+coach -> bat **
+coach -> bat ++: entre(carismatico, charanguista)
+
+bat -> p1 ++: presentaMejorQue( charanguista )
+
+p1 -> pp1 ** : new Presentacion(carismatico)
+note over pp1 : comete 2 errores
+
+p1 -> p2 ++: presentaMejorQue( carismatico, presentacionCarismatico )
+
+p2 -> pp2 ** : new Presentacion(charango)
+note over pp2 : comete 2 errores
+
+p2 -> pp2 ++: presentaMejorQue( charanguista,carismatico, presentacionCarismatico )
+
+pp2 -> pp1 ++: errores()
+return
+
+pp2 -> pp2 : comparar errores
+
+note over pp2 : ambos cometieron 2 errores
+
+pp2 -> pp1 ++: masHabilQue( carismatico, charanguista, charango )
+pp1 -> hab ++: masHabilQue( carismatico, charanguista, charango )
+
+return charanguista
+return charanguista
+return charanguista
+return charanguista
+return charanguista
+
+bat -> bat ++ : setGanador(charanguista)
+return
+bat -> bat ++ : setPerdedor(carismatico)
+return
+
+return charanguista
+return charanguista
+
+
+@enduml
