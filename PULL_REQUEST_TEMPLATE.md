@@ -1,0 +1,4 @@
+- [ ] Renombrar el enunciado/las consignas como `README.md` o `README.txt`
+- [ ] No agregar ningun archivo que sea autogenerado, solo cosas del examen
+- [ ] Separar la resolucion del alumno en un dir `resolucion_alumno` para no pisar los archivos de la catedra
+- [ ] Nombrar directorio como `final-YYYY-mm-dd`
