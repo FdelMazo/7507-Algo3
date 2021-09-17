@@ -1,0 +1,73 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+
+actor actor
+participant p1 as "bailarin:Participante"
+participant pp1 as "presentacionBailarin:Presentacion"
+participant p2 as "normal:Participante"
+participant pp2 as "presentacionNormal:Presentacion"
+participant hab as "bailar:HabilidadBailar"
+participant hab2 as "ninguna:SinHabilidad"
+participant coach as "coach:Coach"
+participant bat as "primerBatalla:Batalla"
+
+actor ++
+
+actor -> p1 **
+actor -> hab **
+actor -> p1 ++: setHabilidad( bailar )
+return
+
+actor -> p2 **
+p2++
+p2 -> hab2 **
+p2--
+
+actor -> coach ++ : asignarParticipantes( [bailarin, normal] )
+return
+
+actor -> coach ++: batallaEntre(bailarin, normal)
+
+coach -> bat **
+coach -> bat ++: entre(bailarin, normal)
+
+bat -> p1 ++: presentaMejorQue( normal )
+
+p1 -> pp1 ** : new Presentacion(bailarin)
+note over pp1 : comete 0 errores
+
+p1 -> p2 ++: presentaMejorQue( bailarin, presentacionBailarin )
+
+p2 -> pp2 ** : new Presentacion(ninguna)
+note over pp2 : comete 0 errores
+
+p2 -> pp2 ++: presentaMejorQue( normal,bailarin, presentacionBailarin )
+
+pp2 -> pp1 ++: errores()
+return
+
+pp2 -> pp2 : comparar errores
+
+note over pp2 : ninguno cometio errores
+
+pp2 -> pp1 ++: masHabilQue( bailarin, normal, ninguna )
+pp1 -> hab ++: masHabilQue( bailarin, normal, ninguna )
+
+return bailarin
+return bailarin
+return bailarin
+return bailarin
+return bailarin
+
+bat -> bat ++ : setGanador(bailarin)
+return
+bat -> bat ++ : setPerdedor(normal)
+return
+
+return bailarin
+return bailarin
+
+
+@enduml

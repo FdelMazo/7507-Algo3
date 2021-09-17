@@ -1,0 +1,96 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+
+actor actor
+participant p1 as "unParticipante:Participante"
+participant pp1 as "unaPresentacion:Presentacion"
+participant p2 as "otroParticipante:Participante"
+participant pp2 as "otraPresentacion:Presentacion"
+participant coach as "coach:Coach"
+participant bat as "tercerBatalla:Batalla"
+
+participant bat2 as "segundaBatalla:Batalla"
+participant p3 as "carismatico:Participante"
+participant coach2 as "ladron:Coach"
+participant coach3 as "otroLadron:Coach"
+
+actor ++
+
+note over bat2 : viene de antes
+actor -> coach2 ++ : robarDe( segundaBatalla )
+coach2 -> bat2 ++ : robarPor( ladron )
+bat2 -> coach2 ++ : asignarParticipantes( [carismatico] )
+coach2 -> p3 ++ : asignarCoach(ladron)
+note over coach : siempre fue el mismo
+p3 -> coach ++ : perderParticipante( carismatico )
+
+return
+return
+return
+return
+return
+
+actor -> p1 **
+
+actor -> p2 **
+
+actor -> coach ++ : asignarParticipantes( [unParticipante, otroParticipante] )
+return
+
+actor -> coach ++: batallaEntre( unParticipante, otroParticipante)
+
+coach -> bat **
+coach -> bat ++: entre(unParticipante, otroParticipante)
+
+bat -> p1 ++: presentaMejorQue( otroParticipante )
+
+p1 -> pp1 ** 
+note over pp1 : comete 1 error
+
+p1 -> p2 ++: presentaMejorQue( unParticipante, unaPresentacion )
+
+p2 -> pp2 ** 
+note over pp2 : cometio 0 errores
+
+p2 -> pp2 ++: presentaMejorQue( otroParticipante,unParticipante, unaPresentacion )
+
+pp2 -> pp1 ++: errores()
+return
+
+pp2 -> pp2 : comparar errores
+
+note over pp2 : otroParticipante cometio menos errores
+
+
+return otroParticipante
+return otroParticipante
+return otroParticipante
+
+bat -> bat ++ : setGanador(otroParticipante)
+return
+bat -> bat ++ : setPerdedor(unParticipante)
+return
+
+return otroParticipante
+return otroParticipante
+
+
+actor -> coach2 ++ : robarDe( tercerBatalla )
+note over coach2 : ya Robo
+return
+
+actor -> coach3 ++ : robarDe( tercerBatalla )
+coach3 -> bat ++ : robarPor( otroLadron )
+bat -> coach3 ++ : asignarParticipantes( [unParticipante] )
+coach3 -> p1 ++ : asignarCoach(otroLadron)
+p1 -> coach ++ : perderParticipante( unParticipante )
+
+return
+return
+return
+return
+return
+
+@enduml
