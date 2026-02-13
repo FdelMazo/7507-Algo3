@@ -1,0 +1,94 @@
+@startuml AlgoRoma-class
+
+title AlgoRoma - Diagrama de clases.
+
+class "AlgoRoma" as AR {
+    - gladiadores : Gladiador[0..*]
+    - cohortes : Cohorte[0..*]
+    + registrarGladiador() : Gladidador
+    + registrarGladidador(arma: Arma, armadura: Armadura, victorias: int) : Gladiador
+    + registrarGladiador(arma1: Arma, arma2: Arma, armadura: Armadura, victorias: int) : Gladiador
+    + formarCohorte(gladiadores: Gladiadores[]) : Cohorte 
+    + batallar(gladiador1: Gladiador, gladiador2: Gladiador) : Gladiador
+    + obtenerPuntaje(gladiador: Gladiador) : int
+    + obtenerPuntaje(cohorte: Cohorte) : int
+}
+
+class "Gladiador" as G {
+    - armas : Arma[1..2]
+    - armadura : Armadura
+    - victorias : int
+    - status: EstatusGladiador
+    + Gladiador(victorias: int)
+    + calcularPuntaje() : int
+    + ganar()
+    + esLeyenda() : bool
+    - equipar(arma: Arma)
+    - equipar(armadura: Armadura)
+}
+enum "EstatusGladiador" as SG {
+    NOVATO
+    SENIOR
+    LEYENDA
+}
+class "Cohorte" as C {
+    - gladiadores: Gladiador[1..5]
+    + Cohorte(gladiadores: Gladiador[])
+    + calcularPuntaje() : int 
+}
+
+interface "Arma" as A {
+    + {abstract} aplicarAtaquePara(estatus: EstatusGladiador)
+}
+class "Espada" as E {
+    - ataqueBase: int
+    + aplicarAtaquePara()
+}
+class "Tridente" as T {
+    - ataqueBase: int
+    + aplicarAtaquePara()
+}
+class "Jabalina" as J {
+    - ataqueBase: int
+    + aplicarAtaquePara()
+}
+
+interface "Armadura" as AC {
+    + {abstract} aplicarProteccionPara(estatus: EstatusGladiador) : int
+}
+class "Escudo" as ES {
+    - proteccionBase: int
+    + aplicarProteccionPara() : int
+}
+class "Escamada" as EC {
+    - proteccionBase: int
+    + aplicarProteccionPara() : int
+}
+class "Pesada" as P {
+    - proteccionBase: int
+    + aplicarProteccionPara() : int
+}
+
+AR *--> G
+AR *--> C
+AR ..> A
+AR ..> AC
+G <-o C
+
+G -> SG
+
+A <|-- E
+A <|-- T
+A <|-- J
+
+AC <|-- ES
+AC <|-- EC
+AC <|-- P
+
+G --> AC
+G --> A
+
+A ..> SG
+SG <.. AC
+
+@enduml

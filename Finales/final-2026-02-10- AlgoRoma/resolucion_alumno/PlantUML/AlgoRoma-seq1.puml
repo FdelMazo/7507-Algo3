@@ -1,0 +1,63 @@
+@startuml AlgoRoma-seq1
+
+title AlgoRoma - Secuencia Test 1
+skinparam style strictuml
+
+actor "TestCase" as TC
+participant ":AlgoRoma" as AR
+participant "g:Gladiador" as G
+participant ":Jabalina" as J
+participant ":Tridente" as T
+participant ":Escamas" as E
+
+TC -> AR : AlgoRoma()
+activate AR
+AR -> AR : new Gladiador[]
+AR -> AR : new Cohorte[]
+return new AlgoRoma
+
+TC -> AR : registrarGladiador()
+activate AR
+AR -> G : Gladiador()
+activate G
+G -> G : status = LEYENDA
+G -> J : Jabalina()
+activate J
+return new Jabalina
+G -> G : equipar()
+G -> G : armas.add()
+G -> T : Tridente
+activate T
+return new Tridente
+G -> G : equipar()
+G -> G : armas.add()
+G -> E : Escamas()
+activate E
+return new Escamas
+G -> G : equipar()
+return new Gladiador
+AR -> AR : gladiadores.add()
+return new Gladiador
+
+TC -> AR : obtenerPuntaje()
+activate AR 
+AR -> G : calcularPuntaje()
+activate G 
+G -> J : aplicarAtaquePara(status)
+activate J
+J -> J : 2*ataqueBase
+return 500
+G -> G : totalAtaque += 500
+G -> T : aplicarAtaquePara(status)
+activate T
+T -> T : ataqueBase + 500
+return 1500
+G -> G : totalAtaque += 1500
+G -> E : aplicarProteccionPara(status)
+activate E
+return 750
+G -> G : total = 0.6* totalAtaque + 0.4*proteccion
+return 1500
+return 1500
+
+@enduml

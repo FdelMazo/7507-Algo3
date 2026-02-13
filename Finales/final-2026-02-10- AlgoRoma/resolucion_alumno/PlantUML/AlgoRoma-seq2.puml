@@ -1,0 +1,84 @@
+@startuml AlgoRoma-seq2
+
+title AlgoRoma - Secuencia Test 2
+skinparam style strictuml
+
+actor "TestCase" as TC
+participant ":AlgoRoma" as AR
+participant "g1:Gladiador" as G1
+participant "g2:Gladiador" as G2
+participant ":Espada" as E
+participant ":Jabalina" as J
+participant ":Tridente" as T
+participant ":Pesada" as P
+participant ":Escamas" as AE
+
+TC -> AR : AlgoRoma()
+activate AR
+AR -> AR : new Gladiadores[]
+AR -> AR : new Cohortes[]
+return new AlgoRoma
+
+TC -> AR : registrarGladiador()
+activate AR
+AR -> G1 : Gladiador()
+activate G1
+G1 -> G1 : status = NOVATO
+G1 -> E : Espada()
+activate E
+return new Espada
+G1 -> G1 : equipar()
+G1 -> J : Jabalina()
+activate J
+return new Jabalina
+G1 -> G1 : equipar()
+G1 -> P : Pesada()
+activate P
+return new Pesada
+G1 -> G1 : equipar()
+return new Gladiador
+AR -> AR : gladiadores.add()
+return new Gladiador
+
+TC -> AR : registrarGladiador()
+activate AR
+AR -> G2 : Gladiador()
+activate G2
+G2 -> G2 : status = SENIOR
+G2 -> T : Tridente()
+activate T
+return new Tridente
+G2 -> AE : Escama()
+activate AE
+return new Escamas
+G2 -> G2 : equipar()
+return new Gladiador
+AR -> AR : gladiadores.add()
+return new Gladiador
+
+TC -> AR : batallar(g1, g2)
+activate AR
+AR -> G1 : calcularPuntaje()
+activate G1
+loop cada arma en G1
+G1 -> G1 : arma.aplicarAtaquePara(status)
+end
+G1 -> G1 : armadura.aplicarProteccionPara(status)
+G1 -> G1 : total = 0.6* totalAtaque + 0.4*proteccion
+return 720
+AR -> G2 : calcularPuntaje()
+activate G2
+G2 -> G2 : arma.aplicarAtaquePara(status)
+G2 -> G2 : armadura.aplicarProteccionPara(status)
+G2 -> G2 : total = 0.6* totalAtaque + 0.4*proteccion
+return 800
+AR -> G2 : ganar()
+activate G2
+G2 -> G2 : victorias++
+G2 -> G2 : status = LEYENDA 
+return
+return g2
+
+
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml AlgoRoma-seq3
+
+title AlgoRoma - Secuencia Test 3
+skinparam style strictuml
+
+actor "TestCase" as TC
+participant ":AlgoRoma" as AR
+participant ":Gladiador" as G
+participant "c:Cohorte" as C
+
+rnote over AR, C: Ver la inicialización de los Gladiadores \n en //"seq-1" (legendario)// y //"seq-2" (senior)// para evitar la redundancia
+
+TC -> AR : AlgoRoma()
+activate AR 
+AR -> AR : new Gladiadores[]
+AR -> AR : new Cohortes[]
+return new AlgoRoma
+
+TC -> AR : registrarGladiador()
+activate AR
+AR -> G : new Gladiador()
+activate G
+G -> G : status = LEYENDA
+return «create» g1
+return g1
+
+loop 4 veces más
+    TC -> AR : registrarGladiador()
+    activate AR
+    AR -> G : new Gladiador()
+    activate G
+    G -> G : status = SENIOR
+    return «create» g(n)
+    return g(n)
+end
+
+TC -> AR : formarCohorte([g1, g2, g3, g4, g5])
+activate AR
+AR -> C : Cohorte([g1, g2, g3, g4, g5])
+activate C
+return new Cohorte
+AR -> AR : cohortes.add()
+return new Cohorte
+
+TC -> AR : obtenerPuntaje(c)
+activate AR
+AR -> C : calcularPuntaje()
+activate C
+loop cada gladiador en c
+    C -> G : calcularPuntaje
+    activate G
+    return puntaje
+    C -> C : total += puntaje
+    C -> G : esLeyenda()
+    activate G
+    alt false
+        G --> C : false
+    else true
+        return true
+        C -> C : tieneLeyenda = true
+    end
+end
+C -> C : total*1.20
+return 4700
+return 4700
+
+@enduml
